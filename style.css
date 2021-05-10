@@ -1,0 +1,35 @@
+*{
+    box-sizing: border-box;
+}
+body{
+    margin:0;
+}
+.menu-container{
+    border: 1px solid red;
+    height:4rem;
+    background-color:lightpink;
+}
+.formula-container{
+    border: 1px solid red;
+    height:2rem;
+    background-color:lightcoral
+}
+.grid-container{
+    border: 1px solid red;
+    height:calc(100vh - (4rem + 2rem + 2rem));
+    background-color: lightgreen;
+}
+.sheets-container{
+    background-color:lightblue;
+    height:2rem;
+    display:flex;
+}
+.sheet-list{
+    width:calc(100vw - 3rem);
+    border: 1px solid red;
+}
+.sheet{
+    width:5rem;
+    border: 1px solid blue;
+    height:100%
+}
