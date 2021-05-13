@@ -1,29 +1,146 @@
+/* GETTING STARTED */
 *{
     box-sizing: border-box;
 }
 body{
     margin:0;
+    font-family:Roboto,RobotoDraft,Helvetica,Arial,sans-serif;
+    font-size:13px;
+    color:black;
 }
+::-webkit-scrollbar{
+    /* for vertical scrollbars */
+    width: 12px;
+    /* for horizontal scrollbars */
+    height: 12px;
+}
+::-webkit-scrollbar-track {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+
+::-webkit-scrollbar-thumb {
+    background-color: rgba(0,0,0,.2);
+    background-clip: padding-box;
+    border: solid transparent;
+    padding: 100px 0 0;
+    box-shadow: inset 1px 1px 0 rgb(0 0 0 / 10%), inset 0 -1px 0 rgb(0 0 0 / 7%);
+    background-clip: content-box;
+    border-radius: 10px;
+}
+::-webkit-scrollbar-corner {
+    background: transparent;
+    border: 1px solid #d9d9d9;
+    border-width: 1px 0 0 1px;
+}
+input:focus, textarea:focus, select:focus{
+    outline: none;
+}
+
+/* ################################## MENU CONTAINER ######################################################## */
+
 .menu-container{
     /* border: 1px solid red; */
     height:4rem;
-    background-color:lightpink;
+    background-color:#FFFFFF;
+    display:flex;
+    /* justify-content:space-around; */
+    align-items: center;
+    gap:1rem;
+    padding-left: 1rem;
 }
+
+.menu-container > *{
+    border:1px solid;
+    height:60%;
+}
+.font-size{
+    width:5%;
+}
+.font-family{
+    width:21%;
+}
+.bui-container{
+    width:21%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.bui-container>*{
+    width:30%;
+    height:80%;
+    text-align: center;
+}
+.align-container{
+    width:14%;
+}
+.color-container{
+    width:10%;
+}
+.sort-container{
+    width: 3%;
+    display:flex;
+    align-items: center;
+    justify-content: center
+}
+.sort-btn{
+    width:80%;
+    height:80%;
+}
+
+
+
+
+
+
+
+
+
+/* ################################## FORMULA CONTAINER ######################################################## */
 .formula-container{
     /* border: 1px solid red; */
     height:2rem;
-    background-color:lightcoral
+    background-color: #eee;
+    display:flex;
+    align-items:center;
+    justify-content: space-around;
+    border: 1px solid #CCCCCC;
+
 }
+.formula-container>*{
+    height:70%;
+}
+.address-input{
+    width: 4rem;
+    background-color: #fff;
+    border: none;
+    padding: 0 8px 0 6px;
+}
+.formula-input{
+    width:calc(100vw - 6rem);
+    background-color: #fff;
+    border: none;
+    padding: 0 8px 0 6px;
+
+}
+
+/* ################################## GRID CONTAINER ######################################################## */
+
 .grid-container{
     /* border: 1px solid red; */
     /* bacha kucha height is given as */
     height:calc(100vh - (4rem + 2rem + 2rem));
-    background-color: lightgreen;
-    overflow-x:auto;
-    overflow-y:auto;
+    /* background-color: lightgreen; */
+    overflow:auto;
+    position:relative ;
 }
+
+/* ################################## SHEET CONTAINER ######################################################## */
+
 .sheets-container{
-    background-color:lightblue;
+    background-color:#f1f3f4;
+    border-top:1px solid #e8eaed;
     height:2rem;
     display:flex;
 }
@@ -40,10 +157,24 @@ body{
     min-width:5rem;
     /* border: 1px solid blue; */
     height:100%;
-    background-color: gray;
+    align-items: center;
+    background-color: #f1f3f4;
+    border-bottom: none;
+    border-left: 1px solid #e8eaed;
+    border-radius: 0;
+    border-right: 1px solid #e8eaed;
+    border-top: 1px solid #e8eaed;
+    padding: 0 12px 0 16px;
+    color: #80868b;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: .025rem;
 }
 .active{
-    background-color:white;
+    background-color: #fff;
+    border-top-color: #f1f3f4;
+    box-shadow: 0 1px 3px 1px rgb(60 64 67 / 15%);
+    color: #4dac6a;
 }
 .add-sheet_btn-container
 {
@@ -53,25 +184,102 @@ body{
     height: 100%;
 }
 
-/* GRIDS */
+
+/* ############################################ GRIDS ######################################################### */
+
+.grid{
+    /* background-color:rebeccapurple; */
+    /* display:flex; */
+    /* height: 2rem; */
+    /* min-width: 100%; */
+    /* overflow-x: auto; */
+    left:2rem;
+    top:2rem;
+    position: absolute;
+    /* height: 2rem; */
+}
 .box {
     height:2rem;
     width:2rem;
-    border: 1px solid black;
+    border: 1px solid #DEDFE2;
     text-align: center;
-    background-color:white;
+    background-color:#F8F9FA;
+    color:#6C7075;
+    padding-top: 0.5rem;
 }
 .left-box {
-    background-color:gray;
+    background-color:#E8EAED;
+    
 }
 .top-row {
+    left:2rem;
+    top:0rem;
+    position:absolute;
     height:2rem;
-    /* background-color:green; */
     display:flex;
 }
 .boxCol{
-    height:100%;
+    /* height:100%; */
     min-width:4rem;
-    border: 1px solid black;
+    border: 1px solid #DEDFE2;
     text-align: center;
+    background-color:#F8F9FA;
+    color:#6C7075;
+    padding-top: 0.4rem;
+}
+
+.cell{
+    border: 1px solid #E2E3E3;
+    text-align: center;
+    min-width:4rem;
+    height:2rem;
+    color: #474747;
+    /* min-height: 1rem; */
+}
+.boxCol:hover:not(.onselect),.box:hover {
+    background-color:#2A8947;
+    color:#F0F1F3;
+}
+.cell:focus
+{
+    /* background-color:red;
+     */
+     outline: none;
+    border: 2px solid #1A73E8;
+}
+
+.row
+{
+    /* SO THAT ALL CELLS COME TOGETHER IN STRAIGHT LINE*/
+    display:flex;
+}
+.focused-cell{
+    background-color:#E8EAED;
+    color:#777B7F;
+}
+
+
+/* FOR COLUMN SELECTION */
+.selected-first
+{
+    border-top: 2px solid #1A73E8;
+    border-left: 2px solid #1A73E8;
+    border-right: 2px solid #1A73E8;
+}
+
+.selected-last{
+    border-bottom: 2px solid #1A73E8;
+    border-left: 2px solid #1A73E8;
+    border-right: 2px solid #1A73E8;
+
+}
+
+.selected-between{
+    border-left: 2px solid #1A73E8;
+    border-right: 2px solid #1A73E8;
+}
+
+.onselect{
+    background-color:#5F6368;
+    color:white;
 }
