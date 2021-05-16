@@ -93,6 +93,7 @@ for (let i = 0; i < rows; i++) {
 }
 
 //LOOPING ON EVERY ROW AND GETTING EACH COLUMN NODE
+
 let completeGrid = [];
 let allRows = document.querySelectorAll(".row");
 for (let i = 0; i < rows; i++) {
@@ -107,6 +108,7 @@ completeGrid[0][0].focus();
 completeGrid[0][0].click();
 
 //ADDING CLICK LISTENER ON TOP ROW
+
 for (let i = 0; i < column; i++) {
     let cell = arrayOfAllTopRowElements[i];
     //FOR EVERY NEW LISTENER  CURRENTCELL VARIABLE  WILL BE NEW VARIABLE AND WILL BE INDEPENDEDNT OF OTHER CALLBACK
@@ -217,16 +219,20 @@ sortBtn.addEventListener("click", function (e) {
 // BUI CONTAINER ACTIVATED
 
 //BOLD ACTIVATED
+
 boldBtn.addEventListener("click", function () {
     let cell = findUICell();
     cell.style.fontWeight = "bold";
 })
 
 //ITALIC ACTIVATED
+
 italicBtn.addEventListener("click", function () {
     let cell = findUICell();
     cell.style.fontStyle = "italic";
 })
+
+//UNDERLINE ACTIVATED
 
 underlineBtn.addEventListener("click", function () {
     let cell = findUICell();
@@ -234,7 +240,14 @@ underlineBtn.addEventListener("click", function () {
 })
 
 
+// ALIGN CONTAINER ACTIVATED
+
+
+
+
+
 //HELPER FUNCTIONS
+
 function convertToRidCid(address) {
     let cid = Number(address.charCodeAt(0)) - 65;
     let rid = Number(address.slice(1)) - 1;
@@ -248,6 +261,8 @@ function findUICell() {
     let cell = document.querySelector(`.cell[rid="${ridcid.rid}"][cid="${ridcid.cid}"]`);
     return cell;
 }
+
+
 
 // ################################### NOTES ##############################
 // to select all cells we can also do document.querySelectorAll(".grid .cell")
