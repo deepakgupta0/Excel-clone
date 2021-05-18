@@ -2,10 +2,19 @@ let leftCol = document.querySelector(".left-col");
 let topRow = document.querySelector(".top-row");
 let grid = document.querySelector(".grid");
 let addressBar = document.querySelector(".address-input");
-let boldBtn = document.querySelector(".bold")
-let italicBtn = document.querySelector(".italic")
-let underlineBtn = document.querySelector(".underline")
-let sortBtn = document.querySelector(".sort-btn")
+let boldBtn = document.querySelector(".bold");
+let italicBtn = document.querySelector(".italic");
+let underlineBtn = document.querySelector(".underline");
+let sortBtn = document.querySelector(".sort-btn");
+let alignContainer = document.querySelectorAll(".align-container > *");
+let fontSize = document.querySelector(".font-size");
+let fontFamily = document.querySelector(".font-family");
+let leftBtn = document.querySelector(".left");
+let centerBtn = document.querySelector(".center");
+let rightBtn = document.querySelector(".right");
+let formulaBar = document.querySelector(".formula-input");
+
+// console.log(fontFamily);
 
 let rows = 100;
 let column = 26;
@@ -16,6 +25,36 @@ let previousTopRowElement = -1;
 let lastClickedTopRow = -1;
 let isTopRowSelected = false;
 let lastClickedCell = -1;
+
+
+//MAKING OBJECT FOR EVERY CELL IN OUR WORKSHEET
+//THIS WILL HELP US WHEN WE WILL CHANGE WORKSHEET 1->2 ->3 AND SO ON
+let sheetDb = [];
+
+for (let i = 0; i < rows; i++) {
+    let row = [];
+    for (let j = 0; j < column; j++) {
+        let cellProps = {
+            bold: "normal",
+            italic: "normal",
+            underline: "none",
+            align: "center",
+            fontFamily: "Verdana",
+            fontSize: "16",
+            color: "black",
+            backgroundColor: "white",
+            value: "",
+            formula: "",
+            children: []
+        };
+        row.push(cellProps);
+    }
+    sheetDb.push(row);
+}
+
+
+
+
 
 //On ESC Reset All
 document.addEventListener("keydown", function () {
@@ -52,6 +91,8 @@ let arrayOfAllTopRowElements = document.querySelectorAll(".boxCol");
 // console.log(arrayOfAllTopRowElements);
 
 
+
+
 //GRID A1,A2,..........
 for (let i = 0; i < rows; i++) {
     let row = document.createElement("div");
@@ -71,10 +112,45 @@ for (let i = 0; i < rows; i++) {
             // cell.focus();
             let row = cell.getAttribute("rid");
             let col = cell.getAttribute("cid");
-            // console.log(col);
             // console.log(row);
+            row = Number(row);
+            col = Number(col);
+            // console.log(typeof col);
+
+            // console.log(sheetDb);
+            let cellProp = sheetDb[row][col];
+            console.log(cellProp);
+
+
             row = Number(row) + 1;
             col = String.fromCharCode(65 + j);
+
+
+            // CHECKING THE STATE WHEN WE CLICK ON CELL
+            // --> IS IT BOLD??? AND THEN CHANGING THE BUTTONS PRESSED ACCORDINGLY
+            if (cellProp.bold == "normal") {
+                boldBtn.classList.remove("active-btn");
+            }
+            else {
+                boldBtn.classList.add("active-btn");
+            }
+            // --> IS IT ITALIC??? AND THEN CHANGING THE BUTTONS PRESSED ACCORDINGLY
+            if (cellProp.italic == "normal") {
+                italicBtn.classList.remove("active-btn");
+            }
+            else {
+                italicBtn.classList.add("active-btn");
+            }
+
+            // --> IS IT UNDERLINE??? AND THEN CHANGING THE BUTTONS PRESSED ACCORDINGLY
+            if (cellProp.underline == "none") {
+                underlineBtn.classList.remove("active-btn");
+            }
+            else {
+                underlineBtn.classList.add("active-btn");
+            }
+
+
             // console.log(col + row);
             addressBar.value = `${col}${row}`;
             if (previousLeftColElement != -1 && previousTopRowElement != -1) {
@@ -104,8 +180,8 @@ for (let i = 0; i < rows; i++) {
     completeGrid.push(rowContent);
 }
 
-completeGrid[0][0].focus();
 completeGrid[0][0].click();
+completeGrid[0][0].focus();
 
 //ADDING CLICK LISTENER ON TOP ROW
 
@@ -183,17 +259,15 @@ function removeSelectionOnCol(cell, i) {
 // numArray.sort((a, b) => a - b);
 sortBtn.addEventListener("click", function (e) {
     // allElementInThatRow converted to integer
-    if(lastClickedTopRow == -1)
-    {
+    if (lastClickedTopRow == -1) {
         console.log("ERROR NO COLUMN SELECTED!!!!!!!!!!!!!!!!!!!!!!");
         Swal.fire({
             icon: 'error',
             title: 'Oops...',
             text: ' You Didn\'t Select Any Column ',
-          })
+        })
     }
-    else
-    {
+    else {
         let allNumbersInThatRow = [];
         for (let i = 0; i < rows; i++) {
             if (allElementInThatRow[i] == "") {
@@ -209,7 +283,7 @@ sortBtn.addEventListener("click", function (e) {
             // console.log(completeGrid[i][lastClickedTopRow]);
         }
     }
-    
+
 })
 
 
@@ -222,28 +296,113 @@ sortBtn.addEventListener("click", function (e) {
 
 boldBtn.addEventListener("click", function () {
     let cell = findUICell();
-    cell.style.fontWeight = "bold";
+    let address = addressBar.value;
+    let ridcid = convertToRidCid(address);
+
+    let rid = ridcid.rid;
+    let cid = ridcid.cid;
+
+    let cellProp = sheetDb[rid][cid];
+
+    if (cellProp.bold == "normal") {
+        //BUTTON MAI CHANGE KARO
+        boldBtn.classList.add("active-btn");
+        //UI MAI CHANGES LAO
+        cell.style.fontWeight = "bold";
+        //BEHIND THE SCENE WALI CHIZ MAI CHANGES LAO
+        cellProp.bold = "bold";
+    }
+    else {
+        //BUTTON MAI CHANGE KARO
+        boldBtn.classList.remove("active-btn");
+        //UI MAI CHANGES LAO
+        cell.style.fontWeight = "normal";
+        //BEHIND THE SCENE WALI CHIZ MAI CHANGES LAO
+        cellProp.bold = "normal";
+    }
 })
 
 //ITALIC ACTIVATED
 
 italicBtn.addEventListener("click", function () {
     let cell = findUICell();
-    cell.style.fontStyle = "italic";
+    let address = addressBar.value;
+
+    let ridcid = convertToRidCid(address);
+
+    let rid = ridcid.rid;
+    let cid = ridcid.cid;
+
+    let cellProp = sheetDb[rid][cid];
+
+    if (cellProp.italic == "normal") {
+        italicBtn.classList.add("active-btn");
+        cell.style.fontStyle = "italic";
+        cellProp.italic = "italic";
+    }
+    else {
+        italicBtn.classList.remove("active-btn");
+        cell.style.fontStyle = "normal";
+        cellProp.italic = "normal";
+    }
+
 })
 
 //UNDERLINE ACTIVATED
 
 underlineBtn.addEventListener("click", function () {
     let cell = findUICell();
-    cell.style.textDecoration = "underline";
+
+    let address = addressBar.value;
+
+    let ridcid = convertToRidCid(address);
+
+    let rid = ridcid.rid;
+    let cid = ridcid.cid;
+
+    let cellProp = sheetDb[rid][cid];
+
+    if (cellProp.underline == "none") {
+        underlineBtn.classList.add("active-btn");
+        cell.style.textDecoration = "underline";
+        cellProp.underline = "italic";
+    }
+    else {
+        underlineBtn.classList.remove("active-btn");
+        cell.style.textDecoration = "none";
+        cellProp.underline = "none";
+    }
 })
 
 
 // ALIGN CONTAINER ACTIVATED
 
+for (let i = 0; i < alignContainer.length; i++) {
+    alignContainer[i].addEventListener("click", function () {
+
+        let alignProperty = alignContainer[i].getAttribute("class");
+        let element = findUICell();
+        element.style.textAlign = alignProperty;
+    })
+}
+
+//SIZE DROPDOWN ACTIVATED
+
+fontSize.addEventListener("change", function () {
+    let selectedValue = fontSize.value;
+    let element = findUICell();
+    element.style.fontSize = selectedValue + "px";
+});
 
 
+//FONT FAMILY ACTIVATED
+
+fontFamily.addEventListener("change", function () {
+    let selectedValue = fontFamily.value;
+    let element = findUICell();
+    element.style.fontFamily = selectedValue;
+
+})
 
 
 //HELPER FUNCTIONS
@@ -255,6 +414,7 @@ function convertToRidCid(address) {
 
 }
 
+//RETURNS THE CELL WHICH IS PRESENT IN ADDRESS BOX
 function findUICell() {
     let address = addressBar.value;
     let ridcid = convertToRidCid(address);

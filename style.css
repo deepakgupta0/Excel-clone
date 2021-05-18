@@ -82,13 +82,15 @@ input:focus, textarea:focus, select:focus{
     width: 3%;
     display:flex;
     align-items: center;
-    justify-content: center
+    justify-content: center;
 }
 .sort-btn{
     width:80%;
     height:80%;
 }
-
+.active-btn{
+    background-color:#f00;
+}
 
 
 
@@ -243,8 +245,8 @@ input:focus, textarea:focus, select:focus{
 .cell:focus
 {
     /* background-color:red;
-     */
-     outline: none;
+    */
+    outline: none;
     border: 2px solid #1A73E8;
 }
 
@@ -256,6 +258,7 @@ input:focus, textarea:focus, select:focus{
 .focused-cell{
     background-color:#E8EAED;
     color:#777B7F;
+    border-bottom: 2px solid #2A8947;
 }
 
 
@@ -271,7 +274,7 @@ input:focus, textarea:focus, select:focus{
     border-bottom: 2px solid #1A73E8;
     border-left: 2px solid #1A73E8;
     border-right: 2px solid #1A73E8;
-
+    
 }
 
 .selected-between{
@@ -282,4 +285,15 @@ input:focus, textarea:focus, select:focus{
 .onselect{
     background-color:#5F6368;
     color:white;
+}
+
+
+
+
+
+/* ############################################ NEW OPEN SAVE CONTAINER ######################################################### */
+
+/* new open save */
+.nos-container>*{
+    border:none;
 }
